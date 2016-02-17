@@ -43,13 +43,24 @@ def add_entry():
     title = request.form['title']
     file = request.files['file']
     filename = file.filename
-    file.save(os.path.join("filefolder", filename))
+    file.save(os.path.join("app/static/uploads", filename))
     return render_template("files.html",title=title)
     #g.db.execute('insert into entries (title, text) values (?, ?)',
     #             [title, filename])
     #g.db.commit()
     #flash('New entry was successfully posted')
     #return redirect(url_for('show_entries'))
+
+def fileiterate():
+    rootdir = os.getcwd()
+    print rootdir
+    for subdir, dirs, files in os.walk(rootdir + '/app/static/uploads'):
+        for file in files:
+            print os.path.join(subdir, file)
+@app.route('/filelisting')
+def filelisting():
+    fileiterate()
+fileiterate()
 
 @app.route('/login', methods=['POST','GET'])
 def login():
