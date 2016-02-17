@@ -53,14 +53,18 @@ def add_entry():
 
 def fileiterate():
     rootdir = os.getcwd()
-    print rootdir
+    filelist = []
     for subdir, dirs, files in os.walk(rootdir + '/app/static/uploads'):
         for file in files:
-            print os.path.join(subdir, file)
+            filelist += [os.path.join(subdir, file)]
+    return filelist
+
+
 @app.route('/filelisting')
 def filelisting():
-    fileiterate()
-fileiterate()
+    filelist = fileiterate()
+    print filelist
+    return render_template("filelisting.html",files=filelist)
 
 @app.route('/login', methods=['POST','GET'])
 def login():
