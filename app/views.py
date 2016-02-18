@@ -8,7 +8,7 @@ This file creates your application.
 
 from app import app
 import os
-from flask import session,flash,render_template, request, redirect, url_for
+from flask import session,flash,render_template, request, redirect, url_for,send_from_directory
 USERNAME="admin"
 PASSWORD="naseberry"
 SECRET_KEY="super secure key"
@@ -53,19 +53,25 @@ def add_entry():
 
 def fileiterate():
     rootdir = os.getcwd()
-    filelist = []
+    picturelist = []
     for subdir, dirs, files in os.walk(rootdir + '/app/static/uploads'):
         for file in files:
-            filelist += [os.path.join(subdir, file)]
-    return filelist
-
-
+            filepath = os.path.join(subdir, file)
+    return files
+    
 @app.route('/filelisting')
 def filelisting():
-    filelist = fileiterate()
-    print filelist
-    return render_template("filelisting.html",files=filelist)
-
+    filelist = []
+    picturelist = []
+    allfiles = fileiterate()
+    for file in allfiles:
+        if file.endswith('.jpg') or file.endswith('.jpeg'):
+            picturelist += ['static/uploads/'+file]
+        else:
+            filelist += [file]
+    return render_template("filelisting.html",files=filelist,pictures=picturelist)
+    
+    
 @app.route('/login', methods=['POST','GET'])
 def login():
     error = None 

@@ -7,6 +7,20 @@
 
 {% block main %}
 <div class="container">
- {{files}}
+    <h1>Uploaded Files</h1>
+    <ul>
+    {% for file in files %}
+        <li>{{file}}</li>
+    {% endfor%}
+     </ui> 
+</div>
+
+<div class="container">
+    <h1>JPG Pictures from Uploads</h1>
+    {% for picture in pictures %}
+    <br>
+    <img src="{{picture}}" style="width:500px" height:"500px;"/>
+    <br>
+    {% endfor%}
 </div>
 {% endblock %}
