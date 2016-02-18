@@ -53,7 +53,6 @@ def add_entry():
 
 def fileiterate():
     rootdir = os.getcwd()
-    picturelist = []
     for subdir, dirs, files in os.walk(rootdir + '/app/static/uploads'):
         for file in files:
             filepath = os.path.join(subdir, file)
