@@ -33,9 +33,7 @@ def about():
 @app.route('/files/')
 def files():
     """files view"""
-    if session['logged_in'] == True:
-        return render_template("files.html")
-    return redirect(url_for('login'))
+    return render_template("files.html")
 
 @app.route('/add', methods=['POST'])
 def add_entry():
